@@ -23,10 +23,12 @@ def index():
         
         if utilisateur:
             # ID utilisateur trouvé, on affiche le lien du formulaire Google
-            google_form_url = "https://docs.google.com/forms/d/e/1FAIpQLSfac4EIrtXxHmgQfGbe2RiHb0JPFLkY1V4rMxwCewU3x64RwQ/viewform?usp=sf_link"
+            #google_form_url = "https://docs.google.com/forms/d/e/1FAIpQLSfac4EIrtXxHmgQfGbe2RiHb0JPFLkY1V4rMxwCewU3x64RwQ/viewform?usp=sf_link"
+            google_form_url = f"https://docs.google.com/forms/d/e/1FAIpQLSfac4EIrtXxHmgQfGbe2RiHb0JPFLkY1V4rMxwCewU3x64RwQ/viewform?usp=pp_url&entry.132131935=={utilisateur['ID']}"
+
             return render_template('result.html', id=utilisateur['ID'], google_form_url=google_form_url)
         else:
-            return "Utilisateur non trouvé"
+            return "المستخدم غير موجود"
     
     return render_template('index.html')
 
