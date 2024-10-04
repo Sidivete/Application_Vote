@@ -16,7 +16,6 @@ def lire_base_donnees():
 # Fonction pour vérifier si le numéro a déjà voté
 def a_deja_vote(numero):
     if not os.path.exists('votants.csv'):
-        # Si le fichier votants.csv n'existe pas, cela signifie qu'aucun vote n'a encore été enregistré
         return False
     with open('votants.csv', newline='', encoding='utf-8') as csvfile:
         lecteur_csv = csv.reader(csvfile)
@@ -33,6 +32,8 @@ def enregistrer_vote(numero):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    app_name = "VOTER"  # Nom de l'application
+
     if request.method == 'POST':
         numero = request.form['numero']
 
@@ -51,11 +52,11 @@ def index():
             # Enregistrer que cet utilisateur a voté
             enregistrer_vote(numero)
 
-            return render_template('result.html', id=utilisateur['ID'], google_form_url=google_form_url)
+            return render_template('result.html', id=utilisateur['ID'], google_form_url=google_form_url, app_name=app_name)
         else:
             return "المستخدم غير موجود"
 
-    return render_template('index.html')
+    return render_template('index.html', app_name=app_name)
 
 if __name__ == '__main__':
     app.run
